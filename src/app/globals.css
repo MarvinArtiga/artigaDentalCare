@@ -1,5 +1,7 @@
 :root {
   --primary-dark: #304a6f;
+  /* Enforcing light scheme at root level */
+  color-scheme: light;
   --primary-light: #9a9791;
   /* Using the gray/taupe as a secondary/light tone */
   --accent-gold: #89ecd9;
@@ -24,7 +26,19 @@ body {
   overflow-x: hidden;
   font-family: var(--font-montserrat), sans-serif;
   scroll-behavior: smooth;
+  /* Explicitly setting colors on html/body to override browser defaults */
   color: var(--foreground);
+  background-color: var(--background);
+
+  /* Aggressive Light Mode Enforcement */
+  color-scheme: light;
+  forced-color-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  /* Double enforcement for html tag specific background */
   background-color: var(--background);
 }
 
