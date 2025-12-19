@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Artiga Dental Care | Clínica Dental",
   description: "Cuidado dental experto con la Dra. Cindy Artiga. Agenda tu cita hoy.",
   icons: {
-    icon: '/favicon-custom.png',
+    icon: '/logo-white.png',
   },
 };
 

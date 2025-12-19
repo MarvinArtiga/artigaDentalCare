@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from './ui/Button';
 import { Menu, X } from 'lucide-react';
 import styles from './Navbar.module.css';
@@ -30,6 +31,13 @@ export const Navbar = () => {
         <nav className={clsx(styles.navbar, isScrolled && styles.scrolled)}>
             <div className={clsx("container", styles.navContainer)}>
                 <Link href="/" className={styles.logo}>
+                    <Image
+                        src="/logo-white.png"
+                        alt="Logo Artiga Dental Care"
+                        width={60} // Adjust size as needed
+                        height={60}
+                        style={{ objectFit: 'contain' }}
+                    />
                     <span>ARTIGA <span className="text-gold">DENTAL</span> CARE</span> <span className={styles.doctorName}>| Dra. Cindy Artiga</span>
                 </Link>
 
