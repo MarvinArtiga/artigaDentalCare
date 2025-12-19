@@ -1,5 +1,7 @@
 "use client";
 
+import confetti from 'canvas-confetti';
+
 import { Button } from './ui/Button';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import styles from './Contact.module.css';
@@ -65,7 +67,20 @@ export const Contact = () => {
                             <label htmlFor="message">Mensaje</label>
                             <textarea id="message" rows={4} placeholder="¿En qué podemos ayudarte?" className={styles.textarea}></textarea>
                         </div>
-                        <Button type="submit" variant="primary" className={styles.submitBtn}>Enviar Mensaje</Button>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            className={styles.submitBtn}
+                            onClick={() => {
+                                confetti({
+                                    particleCount: 100,
+                                    spread: 70,
+                                    origin: { y: 0.6 }
+                                });
+                            }}
+                        >
+                            Enviar Mensaje
+                        </Button>
                     </form>
                 </div>
             </div>
