@@ -1,0 +1,98 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.5rem 0;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.scrolled {
+    background-color: var(--primary-dark);
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-white);
+    /* User requested color. Mint/Cyan pops on dark navbar */
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.doctorName {
+    font-weight: 400;
+    font-size: 1rem;
+    opacity: 1;
+    color: var(--text-white);
+    /* Keep white for contrast with the colored logo part, or use accent-blue */
+}
+
+.desktopMenu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navLink {
+    color: var(--text-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.navLink:hover {
+    color: var(--accent-gold);
+}
+
+.mobileToggle {
+    display: none;
+    background: none;
+}
+
+.mobileMenu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktopMenu {
+        display: none;
+    }
+
+    .mobileToggle {
+        display: block;
+    }
+
+    .mobileMenu {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--primary-dark);
+        padding: 2rem;
+        gap: 1.5rem;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobileNavLink {
+        color: var(--text-white);
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+}

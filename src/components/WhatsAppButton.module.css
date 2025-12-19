@@ -1,0 +1,32 @@
+.button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    cursor: pointer;
+    display: block;
+}
+
+.iconWrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.icon {
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .button {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+}

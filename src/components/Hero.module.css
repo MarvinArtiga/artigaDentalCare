@@ -1,0 +1,65 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #2f455c 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background pattern/overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(135, 206, 235, 0.1) 0%, transparent 40%);
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+.textContent {
+    max-width: 650px;
+}
+
+.title {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #E2E8F0;
+    /* Lighter/Brighter than text-gray for better contrast on dark bg */
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Add shadow for readability */
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
