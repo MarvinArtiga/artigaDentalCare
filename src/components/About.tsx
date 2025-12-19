@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import styles from './About.module.css';
 
 export const About = () => {
@@ -14,8 +15,14 @@ export const About = () => {
                     viewport={{ once: false, amount: 0.3 }}
                     transition={{ duration: 0.6 }}
                 >
-                    {/* Placeholder for Doctor's Image - replace with real image later */}
                     <div className={styles.imagePlaceholder}>
+                        <Image
+                            src="/about-cindy.png"
+                            alt="Dra. Cindy Artiga"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            quality={100}
+                        />
                         <div className={styles.imageOverlay}>
                             <span className={styles.imageLabel}>Dra. Cindy Artiga</span>
                         </div>
@@ -32,13 +39,25 @@ export const About = () => {
                     <h2 className={styles.heading}>Conoce a la experta</h2>
                     <h3 className={styles.subheading}>Dra. Cindy Artiga</h3>
                     <p className={styles.text}>
-                        Con más de 10 años de experiencia transformando sonrisas, la Dra. Cindy Artiga se destaca por su enfoque amable y profesional. Graduada con honores y especialista en estética dental, su misión es combinar la ciencia médica con el arte para ofrecer resultados naturales y duraderos.
+                        La <strong>Dra. Cindy Artiga</strong> se distingue por su enfoque profesional, cercano y humano,
+                        enfocado en transformar sonrisas de manera natural y armoniosa. Cuenta con <strong>diplomado en endodoncia</strong> y
+                        una sólida formación a través de <strong>cursos en estética dental y restaurativa moderna</strong>,
+                        lo que le permite ofrecer tratamientos funcionales y estéticos de alta calidad.
                     </p>
                     <p className={styles.text}>
-                        En Artiga Dental Care, creemos que cada paciente merece una atención personalizada. Utilizamos tecnología de punta para asegurar diagnósticos precisos y tratamientos indoloros.
+                        Su filosofía se basa en combinar la ciencia odontológica con el arte del detalle,
+                        priorizando resultados duraderos, naturales y personalizados. Además, se mantiene en <strong>constante actualización profesional</strong>,
+                        incorporando nuevas técnicas y herramientas innovadoras para brindar a sus pacientes los
+                        mejores resultados en cada tratamiento.
+                    </p>
+                    <p className={styles.text}>
+                        En <strong>Artiga Dental Care</strong>, creemos que cada paciente merece una atención individualizada.
+                        Por eso utilizamos <strong>herramientas y equipos modernos</strong> para garantizar diagnósticos
+                        precisos y tratamientos seguros, cómodos e indoloros, siempre enfocados en el bienestar y
+                        la confianza de cada sonrisa.
                     </p>
 
-                    <div className={styles.stats}>
+                    {/* <div className={styles.stats}>
                         <div className={styles.stat}>
                             <span className={styles.statNumber}>10+</span>
                             <span className={styles.statLabel}>Años Exp.</span>
@@ -47,7 +66,7 @@ export const About = () => {
                             <span className={styles.statNumber}>1k+</span>
                             <span className={styles.statLabel}>Pacientes</span>
                         </div>
-                    </div>
+                    </div> */}
                 </motion.div>
             </div>
         </section>
