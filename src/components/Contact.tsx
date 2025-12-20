@@ -24,6 +24,8 @@ export const Contact = () => {
     });
 
     const [isValid, setIsValid] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [submittedEmail, setSubmittedEmail] = useState('');
 
     // Validation Regex
     const nameRegex = /^[a-zA-Z\s]*$/;
@@ -120,9 +122,24 @@ export const Contact = () => {
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            // Here you would typically send the data
-            console.log('Form submitted:', formData);
+
+            setSubmittedEmail(formData.email);
+            setShowSuccessModal(true);
+
+            // Clear form
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            });
+            setIsValid(false);
         }
+    };
+
+    const closeSuccessModal = () => {
+        setShowSuccessModal(false);
+        setSubmittedEmail('');
     };
     return (
         <section id="contact" className={styles.section}>
@@ -136,7 +153,7 @@ export const Contact = () => {
                             <MapPin className="text-gold" size={24} />
                             <div>
                                 <h4 className={styles.detailTitle}>Ubicación</h4>
-                                <p className={styles.detailText}>Avenida Jose Matias Delgado 365, San Salvador</p>
+                                <p className={styles.detailText}>Avenida Jose Matias Delgado 365, San Salvador 1101, El Salvador</p>
                             </div>
                         </div>
 
@@ -254,6 +271,44 @@ export const Contact = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Success Modal */}
+            {showSuccessModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 1000
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        padding: '30px',
+                        borderRadius: '10px',
+                        textAlign: 'center',
+                        maxWidth: '400px',
+                        width: '90%',
+                        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                    }}>
+                        <h3 style={{ color: '#2C3E50', marginBottom: '15px', fontSize: '24px' }}>¡Cita Agendada!</h3>
+                        <p style={{ color: '#666', marginBottom: '20px', lineHeight: '1.5' }}>
+                            Tu cita se ha agendado correctamente. Se te envió un mensaje de confirmación a <strong>{submittedEmail}</strong>.
+                        </p>
+                        <Button
+                            variant="primary"
+                            onClick={closeSuccessModal}
+                            style={{ width: '100%' }}
+                        >
+                            Aceptar
+                        </Button>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
