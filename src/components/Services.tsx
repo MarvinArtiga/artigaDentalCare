@@ -1,29 +1,39 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Sparkles, Smile, ShieldCheck, Gem } from 'lucide-react';
+import { Sparkles, Smile, ShieldCheck, Gem, Hammer, Stethoscope, Sun, Zap } from 'lucide-react';
 import styles from './Services.module.css';
 
 const services = [
     {
         icon: <Sparkles size={40} className="text-blue" />,
-        title: "Limpieza Dental",
-        description: "Profilaxis profunda para mantener tus dientes y encías libres de sarro y bacterias."
+        title: "Limpieza dental",
+        description: "Eliminación profunda de sarro y placa para una salud gingival óptima."
+    },
+    {
+        icon: <Hammer size={40} className="text-gold" />,
+        title: "Restauraciones",
+        description: "Reparación de dientes dañados o con caries devolviendo su función y estética."
+    },
+    {
+        icon: <ShieldCheck size={40} className="text-blue" />,
+        title: "Extracciones",
+        description: "Procedimientos seguros para retirar dientes comprometidos cuando es necesario."
     },
     {
         icon: <Smile size={40} className="text-gold" />,
-        title: "Ortodoncia",
-        description: "Alineación dental estética y funcional con brackets tradicionales o invisibles."
+        title: "Prótesis dentales",
+        description: "Soluciones fijas y removibles para reemplazar dientes perdidos y recuperar tu sonrisa."
     },
     {
-        icon: <Gem size={40} className="text-blue" />,
-        title: "Estética Dental",
-        description: "Carillas, diseño de sonrisa y reconstrucción para la sonrisa perfecta."
-    },
-    {
-        icon: <ShieldCheck size={40} className="text-gold" />,
+        icon: <Sun size={40} className="text-blue" />,
         title: "Blanqueamiento",
-        description: "Tratamiento seguro para aclarar el tono de tus dientes y devolverles su brillo."
+        description: "Aclara el tono de tus dientes de manera segura para una sonrisa radiante."
+    },
+    {
+        icon: <Zap size={40} className="text-gold" />,
+        title: "Endodoncia",
+        description: "Tratamiento de conductos para salvar dientes con daño en el nervio."
     }
 ];
 
