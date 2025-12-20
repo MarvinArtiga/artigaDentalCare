@@ -27,7 +27,7 @@ export const Contact = () => {
                             <Phone className="text-gold" size={24} />
                             <div>
                                 <h4 className={styles.detailTitle}>Teléfono</h4>
-                                <p className={styles.detailText}>+503 2222-0000</p>
+                                <p className={styles.detailText}>+503 6185 9128</p>
                             </div>
                         </div>
 
@@ -35,7 +35,7 @@ export const Contact = () => {
                             <Mail className="text-gold" size={24} />
                             <div>
                                 <h4 className={styles.detailTitle}>Email</h4>
-                                <p className={styles.detailText}>citas@artigadental.com</p>
+                                <p className={styles.detailText}>artigadental.info@gmail.com</p>
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@ export const Contact = () => {
                             <Clock className="text-gold" size={24} />
                             <div>
                                 <h4 className={styles.detailTitle}>Horarios</h4>
-                                <p className={styles.detailText}>Lun - Vie: 8:00 AM - 6:00 PM <br /> Sáb: 8:00 AM - 1:00 PM</p>
+                                <p className={styles.detailText}>Lun - Vie: 9:00 AM - 4:00 PM <br /> Sáb: 9:00 AM - 12:00 PM</p>
                             </div>
                         </div>
                     </div>
