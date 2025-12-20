@@ -23,6 +23,7 @@ export const Navbar = () => {
     const navLinks = [
         { name: 'Servicios', href: '#services' },
         { name: 'Sobre Mí', href: '#about' },
+        { name: 'Ubicación', href: '#location' },
         { name: 'Blog', href: '#blog' },
         { name: 'Contacto', href: '#contact' },
     ];
@@ -38,7 +39,7 @@ export const Navbar = () => {
                         height={60}
                         style={{ objectFit: 'contain' }}
                     />
-                    <span>ARTIGA <span className="text-gold">DENTAL</span> CARE</span> <span className={styles.doctorName}>| Dra. Cindy Artiga</span>
+                    <span>ARTIGA <span className="text-gold">DENTAL</span> CARE</span> <span className={styles.doctorName}>Dra. Cindy Artiga</span>
                 </Link>
 
                 {/* Desktop Menu */}

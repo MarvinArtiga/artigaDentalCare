@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Instagram, Mail } from 'lucide-react';
-import { TikTokIcon } from './ui/TikTokIcon';
 import styles from './Footer.module.css';
 
 export const Footer = () => {
@@ -45,16 +44,13 @@ export const Footer = () => {
                     <div className={styles.socialsWrapper}>
                         <div className={styles.socialLine}></div>
                         <div className={styles.socialIcons}>
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.iconLink}>
+                            <a href="https://www.facebook.com/share/19e5C3FWDg/" target="_blank" rel="noopener noreferrer" className={styles.iconLink}>
                                 <Facebook size={24} />
                             </a>
                             <a href="https://www.instagram.com/artigadental.sv/" target="_blank" rel="noopener noreferrer" className={styles.iconLink}>
                                 <Instagram size={24} />
                             </a>
-                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className={styles.iconLink}>
-                                <TikTokIcon size={24} />
-                            </a>
-                            <a href="#" className={styles.iconLink}>
+                            <a href="mailto:artigadental.info@gmail.com" className={styles.iconLink}>
                                 <Mail size={24} />
                             </a>
                         </div>

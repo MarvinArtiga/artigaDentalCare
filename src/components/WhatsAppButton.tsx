@@ -7,7 +7,7 @@ import styles from './WhatsAppButton.module.css';
 export const WhatsAppButton = () => {
     return (
         <motion.a
-            href="https://wa.me/50379116693?text=Hola,%20quisiera%20agendar%20una%20cita"
+            href="https://wa.me/50361859128?text=Hola,%20quisiera%20agendar%20una%20cita"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.button}

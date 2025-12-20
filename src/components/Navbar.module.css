@@ -34,10 +34,13 @@
 
 .doctorName {
     font-weight: 400;
-    font-size: 1rem;
-    opacity: 1;
-    color: var(--text-white);
-    /* Keep white for contrast with the colored logo part, or use accent-blue */
+    font-size: 0.95rem;
+    opacity: 0.8;
+    color: #94A3B8;
+    /* Slate-400 for contrast against white logo */
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 0.75rem;
+    margin-left: 0.5rem;
 }
 
 .desktopMenu {

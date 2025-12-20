@@ -19,7 +19,7 @@ export const Contact = () => {
                             <MapPin className="text-gold" size={24} />
                             <div>
                                 <h4 className={styles.detailTitle}>Ubicación</h4>
-                                <p className={styles.detailText}>Av. Principal 123, Colonia Médica, San Salvador</p>
+                                <p className={styles.detailText}>Avenida Jose Matias Delgado 365, San Salvador</p>
                             </div>
                         </div>
 
@@ -85,12 +85,24 @@ export const Contact = () => {
                 </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className={styles.mapWrapper}>
-                <div className={styles.mapPlaceholder}>
-                    <p>Google Maps Integration Placeholder</p>
-                    {/* In a real scenario, use an iframe here */}
-                    {/* <iframe src="..." width="100%" height="400" ... ></iframe> */}
+            {/* Map Section */}
+            <div id="location">
+                <div className={styles.locationHeader}>
+                    <h1 className={styles.locationTitle}>Estamos ubicados en San Salvador</h1>
+                    <p className={styles.locationSubtitle}>Será un gusto atenderte y mejorar tu sonrisa</p>
+                </div>
+                <div className={styles.mapWrapper}>
+                    <div className={styles.mapPlaceholder}>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1938.834641619478!2d-89.2396209!3d13.7063844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f633100410643b9%3A0x71875cc4081bfe08!2sArtiga%20Dental%20Care!5e0!3m2!1sen!2svi!4v1700000000000!5m2!1sen!2svi"
+                            width="100%"
+                            height="450"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </section>
