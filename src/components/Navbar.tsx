@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,6 +12,9 @@ import { clsx } from 'clsx';
 export const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isLightPage = pathname === '/blog' || pathname.startsWith('/blog/');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,11 +33,11 @@ export const Navbar = () => {
     ];
 
     return (
-        <nav className={clsx(styles.navbar, isScrolled && styles.scrolled)}>
+        <nav className={clsx(styles.navbar, isScrolled && styles.scrolled, isLightPage && styles.lightPage)}>
             <div className={clsx("container", styles.navContainer)}>
                 <Link href="/" className={styles.logo}>
                     <Image
-                        src="/logo-white.png"
+                        src={isLightPage && !isScrolled ? "/footer-logo-final-v4.png" : "/logo-white.png"}
                         alt="Logo Artiga Dental Care"
                         width={60} // Adjust size as needed
                         height={60}

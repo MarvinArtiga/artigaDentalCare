@@ -11,10 +11,19 @@ const services = [
         description: "Eliminación profunda de sarro y placa para una salud gingival óptima."
     },
     {
+        icon: <Sun size={40} className="text-blue" />,
+        title: "Blanqueamiento",
+        description: "Aclara el tono de tus dientes de manera segura para una sonrisa radiante."
+    },
+
+    {
         icon: <Hammer size={40} className="text-gold" />,
         title: "Restauraciones",
         description: "Reparación de dientes dañados o con caries devolviendo su función y estética."
     },
+
+
+
     {
         icon: <ShieldCheck size={40} className="text-blue" />,
         title: "Extracciones",
@@ -25,11 +34,7 @@ const services = [
         title: "Prótesis dentales",
         description: "Soluciones fijas y removibles para reemplazar dientes perdidos y recuperar tu sonrisa."
     },
-    {
-        icon: <Sun size={40} className="text-blue" />,
-        title: "Blanqueamiento",
-        description: "Aclara el tono de tus dientes de manera segura para una sonrisa radiante."
-    },
+
     {
         icon: <Zap size={40} className="text-gold" />,
         title: "Endodoncia",

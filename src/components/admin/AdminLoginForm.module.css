@@ -1,0 +1,229 @@
+/* Palette:
+   Primary Dark: #304a6f
+   Accent Cyan: #86e7d6
+   White: #fefefe
+   Secondary Blue: #4e6587
+*/
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  background: #304a6f;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 2.5rem;
+  padding: 5rem 2.5rem 3rem;
+  box-shadow: 0 20px 40px -10px rgba(48, 74, 111, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floatingBadge {
+  position: absolute;
+  top: -60px;
+  /* Adjusted text */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fefefe;
+  padding: 0;
+  /* Removing padding to let image fill or use internal padding */
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  /* Slightly larger for the logo */
+  height: 120px;
+  z-index: 10;
+  border: 4px solid #86e7d6;
+  overflow: hidden;
+  /* Ensure image fits */
+}
+
+.floatingBadge::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 2px dashed #4e6587;
+  pointer-events: none;
+  /* Let clicks pass through */
+}
+
+/* Container for the logo to ensure perfect centering and sizing */
+.logoContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Inner padding removed so logo fills the circle */
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.title {
+  color: #fefefe;
+  text-align: center;
+  font-size: 1.25rem;
+  /* Slightly smaller to fit longer text */
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  line-height: 1.4;
+}
+
+.titleSeparator {
+  height: 4px;
+  width: 40px;
+  background: #86e7d6;
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+}
+
+.errorMessage {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  color: #fefefe;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.inputGroup {
+  position: relative;
+  width: 100%;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4e6587;
+  width: 20px;
+  height: 20px;
+  z-index: 5;
+  transition: color 0.3s ease;
+}
+
+.inputGroup:focus-within .inputIcon {
+  color: #304a6f;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 3.5rem 1rem 3.5rem;
+  /* Padding right accommodates toggle button */
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  font-size: 1rem;
+  outline: none;
+  background: #fefefe;
+  color: #304a6f;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.input::placeholder {
+  color: #4e6587;
+  opacity: 0.6;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.input:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(134, 231, 214, 0.3);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #4e6587;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  z-index: 10;
+}
+
+.passwordToggle:hover {
+  color: #304a6f;
+}
+
+.submitButton {
+  background: #86e7d6;
+  color: #304a6f;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 1rem 3rem;
+  border-radius: 9999px;
+  border: none;
+  margin-top: 1.5rem;
+  align-self: center;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px 0 rgba(134, 231, 214, 0.3);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(134, 231, 214, 0.4);
+  background: #73e6d0;
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .card {
+    padding: 5rem 1.5rem 2rem;
+    width: 95%;
+  }
+}

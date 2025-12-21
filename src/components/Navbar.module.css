@@ -9,6 +9,40 @@
     background-color: transparent;
 }
 
+.lightPage {
+    background-color: transparent;
+}
+
+.lightPage .logo,
+.lightPage .navLink {
+    color: var(--primary-dark);
+    /* or #304a6f */
+}
+
+.lightPage .logo span {
+    color: var(--primary-dark);
+}
+
+.lightPage .doctorName {
+    color: #64748b;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightPage.scrolled .logo,
+.lightPage.scrolled .navLink {
+    color: var(--text-white);
+}
+
+.lightPage.scrolled .logo span {
+    color: var(--text-white);
+    /* Reset to default if needed, though usually white */
+}
+
+.lightPage.scrolled .doctorName {
+    color: #94A3B8;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .scrolled {
     background-color: var(--primary-dark);
     padding: 1rem 0;
