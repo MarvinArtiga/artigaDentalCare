@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import PostEditor from '../PostEditor';
 import { Post } from '@/types/blog';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 // Using the same pattern for params as in the blog post page
 export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
@@ -42,10 +43,11 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         setLoading(false);
     };
 
-    if (loading) return <div className="p-10 text-center">Cargando editor...</div>;
+    // if (loading) return <div className="p-10 text-center">Cargando editor...</div>;
 
     return (
         <div className="min-h-screen bg-gray-50">
+            <LoadingOverlay isOpen={loading} text="Cargando editor..." />
             {post && <PostEditor post={post} />}
         </div>
     );

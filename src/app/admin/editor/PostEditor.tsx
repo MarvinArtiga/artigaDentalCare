@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Post } from '@/types/blog';
 import { ArrowLeft, Save, Upload, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 interface PostEditorProps {
     post?: Post;
@@ -101,6 +102,7 @@ export default function PostEditor({ post }: PostEditorProps) {
 
     return (
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-8">
+            <LoadingOverlay isOpen={loading || uploading} text={uploading ? "Subiendo imagen..." : "Guardando artículo..."} />
             <div className="flex justify-between items-center">
                 <Link href="/admin/dashboard" className="text-gray-500 hover:text-gray-700 flex items-center gap-2">
                     <ArrowLeft size={20} /> Cancelar

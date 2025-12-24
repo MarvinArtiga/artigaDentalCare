@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { seedPosts } from '@/utils/seed_posts';
 
 import styles from './blog.module.css';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function BlogPage() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -36,11 +37,7 @@ export default function BlogPage() {
     };
 
     if (loading) {
-        return (
-            <div className="container" style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <p>Cargando artículos...</p>
-            </div>
-        );
+        return <LoadingOverlay isOpen={true} text="Cargando artículos..." />;
     }
 
     return (

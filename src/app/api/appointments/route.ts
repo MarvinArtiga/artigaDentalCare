@@ -108,6 +108,89 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Database error' }, { status: 500 });
         }
 
+        // Send Email Notifications
+        try {
+            if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+                const { transporter, mailOptions } = await import('@/lib/nodemailer');
+
+                // 1. Email to Clinic
+                await transporter.sendMail({
+                    ...mailOptions,
+                    to: 'artigadental.info@gmail.com', // Clinic email
+                    subject: `Nueva Cita: ${name} - ${service}`,
+                    text: `
+                        Nueva solicitud de cita recibida:
+                        
+                        Nombre: ${name}
+                        Email: ${email}
+                        Teléfono: ${phone}
+                        Servicio: ${service}
+                        Fecha: ${date || 'No especificada'}
+                        Hora: ${time || 'No especificada'}
+                        Mensaje: ${message || 'Sin mensaje adicional'}
+                        
+                        Tipo: ${isAutoBooking ? 'Reserva Automática' : 'Solicitud de Información'}
+                    `,
+                    html: `
+                        <h3>Nueva Solicitud de Cita</h3>
+                        <p><strong>Nombre:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Teléfono:</strong> ${phone}</p>
+                        <p><strong>Servicio:</strong> ${service}</p>
+                        <p><strong>Fecha:</strong> ${date || 'No especificada'}</p>
+                        <p><strong>Hora:</strong> ${time || 'No especificada'}</p>
+                        <p><strong>Mensaje:</strong> ${message || 'Sin mensaje adicional'}</p>
+                        <br/>
+                        <p><strong>Tipo:</strong> ${isAutoBooking ? 'Reserva Automática' : 'Solicitud de Información'}</p>
+                    `
+                });
+
+                // 2. Email to Patient
+                await transporter.sendMail({
+                    ...mailOptions,
+                    to: email,
+                    subject: 'Confirmación de Solicitud - Artiga Dental Care',
+                    text: `
+                        Hola ${name},
+                        
+                        Hemos recibido tu solicitud para ${service}.
+                        
+                        ${isAutoBooking
+                            ? `Tu cita ha sido pre-reservada para el ${date} a las ${time}. Te esperamos.`
+                            : 'Gracias por tu interés. Nos pondremos en contacto contigo pronto para coordinar tu evaluación.'}
+                        
+                        Detalles:
+                        Teléfono registrado: ${phone}
+                        
+                        Si necesitas cambiar algo, contáctanos al +503 6185 9128.
+                        
+                        Atentamente,
+                        Artiga Dental Care
+                    `,
+                    html: `
+                        <h3>Hola ${name},</h3>
+                        <p>Hemos recibido tu solicitud para <strong>${service}</strong>.</p>
+                        
+                        ${isAutoBooking
+                            ? `<p style="background-color: #f8f9fa; padding: 10px; border-left: 4px solid #D4AF37;"><strong>Tu cita ha sido reservada para el ${date} a las ${time}.</strong> Te esperamos.</p>`
+                            : '<p>Gracias por tu interés. Nos pondremos en contacto contigo pronto para coordinar tu evaluación.</p>'}
+                        
+                        <p><strong>Detalles:</strong><br/>Teléfono registrado: ${phone}</p>
+                        
+                        <p>Si necesitas cambiar algo, contáctanos al +503 6185 9128.</p>
+                        <br/>
+                        <p>Atentamente,<br/>Artiga Dental Care</p>
+                    `
+                });
+            } else {
+                console.warn('Email credentials not found. Skipping email notification.');
+            }
+
+        } catch (emailError) {
+            console.error('Error sending emails:', emailError);
+            // Don't fail the request, just log it. The appointment is saved.
+        }
+
         return NextResponse.json({ success: true });
 
     } catch (error) {

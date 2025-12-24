@@ -20,10 +20,12 @@ import {
     Clock
 } from 'lucide-react';
 import styles from './dashboard.module.css';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function AdminDashboardActual() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
+    const [deleting, setDeleting] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
     const supabase = createClient();
@@ -52,12 +54,14 @@ export default function AdminDashboardActual() {
     const handleDelete = async (id: number) => {
         if (!confirm('¿Estás seguro de eliminar este artículo?')) return;
 
+        setDeleting(true);
         const { error } = await supabase.from('posts').delete().eq('id', id);
         if (!error) {
             setPosts(posts.filter(p => p.id !== id));
         } else {
             alert('Error al eliminar');
         }
+        setDeleting(false);
     };
 
     const handleLogout = async () => {
@@ -72,14 +76,14 @@ export default function AdminDashboardActual() {
     const publishedPercentage = totalCount > 0 ? Math.round((publishedCount / totalCount) * 100) : 0;
 
     // Loading State
-    if (loading) return (
-        <div className="flex items-center justify-center min-h-screen bg-[#f7f9fc]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2d3436]"></div>
-        </div>
-    );
+    // We keep the overlay always present if loading is true to cover the initial fetch
+    // And also render the main content behind it (or just return the overlay if we prefer to hide everything)
+    // For smoother transition, we render the overlay on top.
+
 
     return (
         <div className={styles.container}>
+            <LoadingOverlay isOpen={loading || deleting} text={deleting ? "Eliminando artículo..." : "Cargando panel..."} />
             {/* Mobile Overlay */}
             {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 

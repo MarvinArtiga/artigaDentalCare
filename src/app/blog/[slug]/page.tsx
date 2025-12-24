@@ -4,6 +4,7 @@ import { useEffect, useState, use } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { Post } from '@/types/blog';
 import Link from 'next/link';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 // Helper to unwrap params
 // In Next.js 15+ params is a Promise, but in 14 it's an object. 
@@ -52,11 +53,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
     };
 
     if (loading) {
-        return (
-            <div className="container min-h-screen py-20 flex justify-center items-center">
-                <p>Cargando artículo...</p>
-            </div>
-        );
+        return <LoadingOverlay isOpen={true} text="Cargando historia..." />;
     }
 
     if (!post) {
