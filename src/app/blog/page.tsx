@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import { Post } from '@/types/blog';
 import { Button } from '@/components/ui/Button';
-import { seedPosts } from '@/utils/seed_posts';
+
 
 import styles from './blog.module.css';
 import LoadingOverlay from '@/components/ui/LoadingOverlay';
@@ -74,21 +74,7 @@ export default function BlogPage() {
                             <Link href="/" className={styles.homeBtn}>
                                 Volver al Inicio
                             </Link>
-                            <Button
-                                variant="outline"
-                                onClick={async () => {
-                                    setLoading(true);
-                                    const success = await seedPosts();
-                                    if (success) {
-                                        fetchPosts();
-                                    } else {
-                                        setLoading(false);
-                                        alert('Error generando posts');
-                                    }
-                                }}
-                            >
-                                Generar Posts de Prueba
-                            </Button>
+
                         </div>
                     </div>
                 ) : (
@@ -119,6 +105,11 @@ export default function BlogPage() {
                                         <h2 className={styles.title}>
                                             {post.title}
                                         </h2>
+                                        {post.excerpt && (
+                                            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                                                {post.excerpt}
+                                            </p>
+                                        )}
 
                                         <div className={styles.footer}>
                                             <div className={styles.date}>

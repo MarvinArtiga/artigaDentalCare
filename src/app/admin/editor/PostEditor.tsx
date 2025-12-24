@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Post } from '@/types/blog';
-import { ArrowLeft, Save, Upload, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Save, Upload, Image as ImageIcon, Eye, X } from 'lucide-react';
 import Link from 'next/link';
 import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
@@ -18,6 +18,7 @@ export default function PostEditor({ post }: PostEditorProps) {
     const supabase = createClient();
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [showPreview, setShowPreview] = useState(false);
 
     const [formData, setFormData] = useState({
         title: post?.title || '',
@@ -101,111 +102,158 @@ export default function PostEditor({ post }: PostEditorProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-8">
-            <LoadingOverlay isOpen={loading || uploading} text={uploading ? "Subiendo imagen..." : "Guardando artículo..."} />
-            <div className="flex justify-between items-center">
-                <Link href="/admin/dashboard" className="text-gray-500 hover:text-gray-700 flex items-center gap-2">
-                    <ArrowLeft size={20} /> Cancelar
-                </Link>
-                <div className="flex gap-4">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={formData.is_published}
-                            onChange={e => setFormData(prev => ({ ...prev, is_published: e.target.checked }))}
-                            className="w-4 h-4"
-                        />
-                        <span className="text-sm font-medium">Publicar inmediatamente</span>
-                    </label>
-                    <Button type="submit" disabled={loading} variant="primary" className="flex items-center gap-2">
-                        <Save size={18} /> {loading ? 'Guardando...' : 'Guardar Artículo'}
-                    </Button>
-                </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-sm space-y-6">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
-                    <input
-                        type="text"
-                        required
-                        value={formData.title}
-                        onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent text-lg font-semibold"
-                        placeholder="Título del artículo"
-                    />
+        <>
+            <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-8">
+                <LoadingOverlay isOpen={loading || uploading} text={uploading ? "Subiendo imagen..." : "Guardando artículo..."} />
+                <div className="flex justify-between items-center">
+                    <Link href="/admin/dashboard" className="text-gray-500 hover:text-gray-700 flex items-center gap-2">
+                        <ArrowLeft size={20} /> Cancelar
+                    </Link>
+                    <div className="flex gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={formData.is_published}
+                                onChange={e => setFormData(prev => ({ ...prev, is_published: e.target.checked }))}
+                                className="w-4 h-4"
+                            />
+                            <span className="text-sm font-medium">Publicar inmediatamente</span>
+                        </label>
+                        <Button type="button" onClick={() => setShowPreview(true)} variant="outline" className="flex items-center gap-2">
+                            <Eye size={18} /> Vista Previa
+                        </Button>
+                        <Button type="submit" disabled={loading} variant="primary" className="flex items-center gap-2">
+                            <Save size={18} /> {loading ? 'Guardando...' : 'Guardar Artículo'}
+                        </Button>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
                         <input
                             type="text"
                             required
-                            value={formData.slug}
-                            onChange={e => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                            className="w-full px-4 py-2 border rounded-lg bg-gray-50 text-gray-600 font-mono text-sm"
+                            value={formData.title}
+                            onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent text-lg font-semibold"
+                            placeholder="Título del artículo"
                         />
                     </div>
-                </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Imagen Principal</label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
-                        {formData.image_url ? (
-                            <div className="relative">
-                                <img src={formData.image_url} alt="Preview" className="max-h-64 mx-auto rounded shadow" />
-                                <button
-                                    type="button"
-                                    onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}
-                                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="space-y-2">
-                                <div className="mx-auto w-12 h-12 text-gray-400">
-                                    <ImageIcon size={48} />
+                    <div className="grid grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
+                            <input
+                                type="text"
+                                required
+                                value={formData.slug}
+                                onChange={e => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+                                className="w-full px-4 py-2 border rounded-lg bg-gray-50 text-gray-600 font-mono text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Imagen Principal</label>
+                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
+                            {formData.image_url ? (
+                                <div className="relative">
+                                    <img src={formData.image_url} alt="Preview" className="max-h-64 mx-auto rounded shadow" />
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}
+                                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
                                 </div>
-                                <div className="text-sm text-gray-600">
-                                    <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue hover:text-blue-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue">
-                                        <span>Sube un archivo</span>
-                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" accept="image/*" onChange={handleImageUpload} disabled={uploading} />
-                                    </label>
-                                    <p className="pl-1 inline">o arrastra y suelta</p>
+                            ) : (
+                                <div className="space-y-2">
+                                    <div className="mx-auto w-12 h-12 text-gray-400">
+                                        <ImageIcon size={48} />
+                                    </div>
+                                    <div className="text-sm text-gray-600">
+                                        <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue hover:text-blue-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue">
+                                            <span>Sube un archivo</span>
+                                            <input id="file-upload" name="file-upload" type="file" className="sr-only" accept="image/*" onChange={handleImageUpload} disabled={uploading} />
+                                        </label>
+                                        <p className="pl-1 inline">o arrastra y suelta</p>
+                                    </div>
+                                    <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                                 </div>
-                                <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                            </div>
-                        )}
-                        {uploading && <p className="text-sm text-blue mt-2">Subiendo...</p>}
+                            )}
+                            {uploading && <p className="text-sm text-blue mt-2">Subiendo...</p>}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Extracto (Resumen)</label>
+                        <textarea
+                            rows={3}
+                            value={formData.excerpt}
+                            onChange={e => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent"
+                            placeholder="Breve descripción que aparecerá en la lista..."
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Contenido (HTML simple)</label>
+                        <textarea
+                            rows={15}
+                            value={formData.content}
+                            onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent font-mono text-sm"
+                            placeholder="<p>Escribe tu contenido aquí...</p>"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Por ahora compatible con HTML básico.</p>
                     </div>
                 </div>
+            </form>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Extracto (Resumen)</label>
-                    <textarea
-                        rows={3}
-                        value={formData.excerpt}
-                        onChange={e => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent"
-                        placeholder="Breve descripción que aparecerá en la lista..."
-                    />
-                </div>
+            {/* Full Screen Preview Overlay */}
+            {
+                showPreview && (
+                    <div className="fixed inset-0 z-[100] bg-white overflow-y-auto">
+                        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b px-6 py-4 flex justify-between items-center shadow-sm">
+                            <h2 className="text-lg font-semibold text-gray-700">Vista Previa del Blog</h2>
+                            <Button onClick={() => setShowPreview(false)} variant="outline" className="flex items-center gap-2 bg-red-50 text-red-600 hover:bg-red-100 border-red-200">
+                                <X size={18} /> Cerrar Vista Previa
+                            </Button>
+                        </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Contenido (HTML simple)</label>
-                    <textarea
-                        rows={15}
-                        value={formData.content}
-                        onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue focus:border-transparent font-mono text-sm"
-                        placeholder="<p>Escribe tu contenido aquí...</p>"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">Por ahora compatible con HTML básico.</p>
-                </div>
-            </div>
-        </form>
+                        <div className="min-h-screen pt-10 pb-20 bg-white">
+                            <article className="container mx-auto px-4 max-w-4xl">
+                                {formData.image_url && (
+                                    <div className="rounded-3xl overflow-hidden mb-10 shadow-lg aspect-video">
+                                        <img
+                                            src={formData.image_url}
+                                            alt={formData.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                )}
+
+                                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                                    {formData.title || "Sin Título"}
+                                </h1>
+
+                                <div className="flex items-center text-gray-500 mb-10 border-b pb-8">
+                                    <span className="mr-4">
+                                        📅 {new Date().toLocaleDateString('es-ES', { dateStyle: 'long' })} (Vista Previa)
+                                    </span>
+                                </div>
+
+                                <div className="prose prose-lg max-w-none prose-headings:text-blue prose-a:text-gold">
+                                    <div dangerouslySetInnerHTML={{ __html: formData.content || "<p>Sin contenido...</p>" }} />
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                )
+            }
+        </>
     );
 }
 
