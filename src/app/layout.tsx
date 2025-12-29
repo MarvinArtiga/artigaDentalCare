@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     siteName: 'Artiga Dental Care',
     images: [
       {
-        url: '/about-cindy.png', // Fallback to doctor's photo which is better than blank
+        url: '/admin-login-logo.png', // Fallback to doctor's photo which is better than blank
         width: 800,
         height: 600,
-        alt: 'Dra. Cindy Artiga',
+        alt: 'Artiga Dental Care Logo',
       },
     ],
     locale: 'es_SV',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Artiga Dental Care | Clínica Dental",
     description: "Cuidado dental experto con la Dra. Cindy Artiga.",
-    images: ['/about-cindy.png'], // Reuse same image
+    images: ['/admin-login-logo.png'], // Reuse same image
   },
 };
 
