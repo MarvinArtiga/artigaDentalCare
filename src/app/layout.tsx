@@ -17,9 +17,31 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "Artiga Dental Care | Clínica Dental",
-  description: "Cuidado dental experto con la Dra. Cindy Artiga. Agenda tu cita hoy.",
+  description: "Cuidado dental experto con la Dra. Cindy Artiga. Agenda tu cita hoy. Servicios: Limpieza, Evaluación, Estética y más.",
   icons: {
     icon: '/logo-white.png',
+  },
+  openGraph: {
+    title: "Artiga Dental Care | Mejorando Sonrisas",
+    description: "Servicios dentales profesionales en San Salvador. Agenda tu cita con la Dra. Cindy Artiga hoy mismo.",
+    url: 'https://artigadental.com', // Replace with actual domain if known, or generic
+    siteName: 'Artiga Dental Care',
+    images: [
+      {
+        url: '/about-cindy.png', // Fallback to doctor's photo which is better than blank
+        width: 800,
+        height: 600,
+        alt: 'Dra. Cindy Artiga',
+      },
+    ],
+    locale: 'es_SV',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Artiga Dental Care | Clínica Dental",
+    description: "Cuidado dental experto con la Dra. Cindy Artiga.",
+    images: ['/about-cindy.png'], // Reuse same image
   },
 };
 

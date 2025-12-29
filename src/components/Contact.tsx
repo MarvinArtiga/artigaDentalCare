@@ -440,7 +440,7 @@ export const Contact = () => {
                             <div style={{ padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '8px', marginBottom: '20px', borderLeft: '4px solid #D4AF37' }}>
                                 <p style={{ color: '#555', fontSize: '14px', margin: 0 }}>
                                     <strong>Nota:</strong> Este tratamiento requiere una evaluación previa.
-                                    Por favor envía tu solicitud y nuestro equipo te contactará para coordinar tu diagnóstico.
+                                    Por favor envía tu solicitud y nuestro equipo te contactará para coordinar tu diagnóstico, o escribe a WhatsApp, será un gusto atenderte ⭐🦷.
                                 </p>
                             </div>
                         )}
@@ -489,7 +489,7 @@ export const Contact = () => {
                                     Procesando...
                                 </>
                             ) : (
-                                selectedServiceData?.autoBook ? 'Agendar Cita' : 'Solicitar Información'
+                                selectedServiceData?.autoBook ? 'Agendar Cita' : 'Agendar Cita'
                             )}
                         </Button>
                         <style jsx>{`
@@ -549,6 +549,9 @@ export const Contact = () => {
                         <h3 style={{ color: '#2C3E50', marginBottom: '15px', fontSize: '24px' }}>¡Cita Agendada!</h3>
                         <p style={{ color: '#666', marginBottom: '20px', lineHeight: '1.5' }}>
                             Tu cita se ha agendado correctamente. Se te envió un mensaje de confirmación a <strong>{submittedEmail}</strong>.
+                        </p>
+                        <p style={{ color: '#666', marginBottom: '20px', fontSize: '14px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '5px' }}>
+                            <span style={{ fontWeight: 'bold', color: '#D4AF37' }}>Nota:</span> Si no recibes el correo de confirmación, por favor contáctanos por WhatsApp para confirmar tu cita.
                         </p>
                         <Button
                             variant="primary"

@@ -168,18 +168,56 @@ export async function POST(request: NextRequest) {
                         Artiga Dental Care
                     `,
                     html: `
-                        <h3>Hola ${name},</h3>
-                        <p>Hemos recibido tu solicitud para <strong>${service}</strong>.</p>
-                        
-                        ${isAutoBooking
-                            ? `<p style="background-color: #f8f9fa; padding: 10px; border-left: 4px solid #D4AF37;"><strong>Tu cita ha sido reservada para el ${date} a las ${time}.</strong> Te esperamos.</p>`
-                            : '<p>Gracias por tu interés. Nos pondremos en contacto contigo pronto para coordinar tu evaluación.</p>'}
-                        
-                        <p><strong>Detalles:</strong><br/>Teléfono registrado: ${phone}</p>
-                        
-                        <p>Si necesitas cambiar algo, contáctanos al +503 6185 9128.</p>
-                        <br/>
-                        <p>Atentamente,<br/>Artiga Dental Care</p>
+                        <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+                            <div style="background-color: #2C3E50; padding: 20px; text-align: center;">
+                                <h2 style="color: #D4AF37; margin: 0;">Confirmación de Cita</h2>
+                            </div>
+                            
+                            <div style="padding: 30px; background-color: #fff;">
+                                <h3 style="color: #2C3E50; margin-top: 0;">Hola ${name},</h3>
+                                <p style="font-size: 16px; line-height: 1.5;">Hemos recibido tu solicitud para <strong>${service}</strong>.</p>
+                                
+                                ${isAutoBooking
+                            ? `<div style="background-color: #fcf8e3; color: #8a6d3b; padding: 15px; border-radius: 4px; border-left: 5px solid #D4AF37; margin: 20px 0;">
+                                        <strong>✅ Tu cita ha sido reservada para el ${date} a las ${time}.</strong><br>
+                                        Te esperamos en nuestra clínica.
+                                       </div>`
+                            : `<p style="font-size: 16px; line-height: 1.5;">Gracias por tu interés. Nos pondremos en contacto contigo pronto para coordinar tu evaluación.</p>`}
+                                
+                                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-top: 20px;">
+                                    <h4 style="margin: 0 0 10px 0; color: #555;">Detalles de contacto registrados:</h4>
+                                    <p style="margin: 0; color: #666;">Teléfono: ${phone}</p>
+                                </div>
+
+                                <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+                                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                    <div>
+                                        <p style="margin: 0; font-weight: bold; color: #2C3E50; font-size: 16px;">Dra. Cindy Artiga</p>
+                                        <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Mejorando sonrisas, cambiando vidas.</p>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 20px;">
+                                    <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">Síguenos en redes sociales:</p>
+                                    <a href="https://www.instagram.com/artigadental.sv/" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="24" height="24" style="vertical-align: middle;">
+                                    </a>
+                                    <a href="https://www.facebook.com/artigadental?rdid=CkxrkpPRSOb6v3P8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19e5C3FWDg%2F#" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="24" height="24" style="vertical-align: middle;">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #999;">
+                                <p style="margin: 0 0 10px 0;">⚠️ Por favor no respondas a este correo electrónico.</p>
+                                <p style="margin: 0;">
+                                    Si tienes consultas, escríbenos a <a href="mailto:artigadental.info@gmail.com" style="color: #D4AF37; text-decoration: none;">artigadental.info@gmail.com</a><br>
+                                    o llámanos/escríbenos al <strong>+503 6185 9128</strong>.
+                                </p>
+                                <p style="margin-top: 15px;">&copy; ${new Date().getFullYear()} Artiga Dental Care. Todos los derechos reservados.</p>
+                            </div>
+                        </div>
                     `
                 });
             } else {
