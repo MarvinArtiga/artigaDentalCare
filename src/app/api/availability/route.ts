@@ -174,7 +174,7 @@ export async function GET(request: NextRequest) {
     // Fetch
     const { data: rawAppointments, error } = await supabase
         .from('appointments')
-        .select('start_time, end_time')
+        .select('start_time, end_time, created_at')
         // We'll broaden the search to avoid timezone misses, filter in memory
         .gte('start_time', new Date(new Date(dateParam).getTime() - 24 * 60 * 60 * 1000).toISOString())
         .lte('end_time', new Date(new Date(dateParam).getTime() + 48 * 60 * 60 * 1000).toISOString());
@@ -185,7 +185,8 @@ export async function GET(request: NextRequest) {
         // And check conflicts
         const bookings = rawAppointments.map(app => ({
             start: new Date(app.start_time),
-            end: new Date(app.end_time)
+            end: new Date(app.end_time),
+            created_at: app.created_at
         }));
 
         possibleSlots.forEach(slot => {
@@ -212,18 +213,29 @@ export async function GET(request: NextRequest) {
             const slotStartAbs = new Date(isoString);
             const slotEndAbs = new Date(slotStartAbs.getTime() + serviceDuration * 60000);
 
-            // LEGACY CHECK:
-            // Some bookings might have been saved as UTC straight (e.g. 09:00 stored as 09:00 UTC instead of 15:00 UTC).
-            // We check if there's a booking that matches the "face value" time in UTC.
+            // Legacy Check Setup
             const legacyIsoString = `${dateParam}T${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:00Z`;
             const legacySlotStart = new Date(legacyIsoString);
             const legacySlotEnd = new Date(legacySlotStart.getTime() + serviceDuration * 60000);
 
-            // Check overlap with either correct time OR legacy time
+            // Cutoff Date for "New Logic" Deployment (Approximate: 2025-12-29 05:00 UTC)
+            // Any booking created BEFORE this is considered "Legacy" (stored as UTC face-value).
+            // Any booking created AFTER this is considered "Correct" (stored as UTC absolute from ES).
+            const FIX_CUTOFF = new Date('2025-12-29T05:00:00Z');
+
+            // Check overlap
             const isBooked = bookings.some(b => {
-                const overlapsCorrect = (slotStartAbs.getTime() < b.end.getTime()) && (slotEndAbs.getTime() > b.start.getTime());
-                const overlapsLegacy = (legacySlotStart.getTime() < b.end.getTime()) && (legacySlotEnd.getTime() > b.start.getTime());
-                return overlapsCorrect || overlapsLegacy;
+                const bookingCreated = new Date(b.created_at);
+                // If checking fails (invalid date), default to checking BOTH to be safe (Block > Overbook).
+                const isLegacy = isNaN(bookingCreated.getTime()) || bookingCreated < FIX_CUTOFF;
+
+                if (isLegacy) {
+                    // Check against LEGACY logic (15:00 UTC = 3 PM ES)
+                    return (legacySlotStart.getTime() < b.end.getTime()) && (legacySlotEnd.getTime() > b.start.getTime());
+                } else {
+                    // Check against CORRECT logic (15:00 UTC = 9 AM ES)
+                    return (slotStartAbs.getTime() < b.end.getTime()) && (slotEndAbs.getTime() > b.start.getTime());
+                }
             });
 
             if (isBooked) {
