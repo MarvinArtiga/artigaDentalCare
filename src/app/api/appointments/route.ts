@@ -56,8 +56,12 @@ export async function POST(request: NextRequest) {
                 // Let's use string manipulation to ensure correct ISO construction if possible,
                 // OR just trust the Date object to work in this context (local dev).
                 // Better approach:
-                const [year, month, day] = date.split('-').map(Number);
-                const safeStart = new Date(year, month - 1, day, hours, minutes, 0);
+                // Better approach:
+                // Construct usage of El Salvador Offset explicitly (-06:00)
+                // Timestamps in DB should be absolute (UTC), but derived from the correct Local Time.
+                // 9:00 AM ES = 15:00 UTC.
+                const isoWithOffset = `${date}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00-06:00`;
+                const safeStart = new Date(isoWithOffset);
 
                 startTime = safeStart.toISOString();
 

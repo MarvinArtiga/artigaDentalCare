@@ -206,15 +206,24 @@ export async function GET(request: NextRequest) {
             // So this slot starts at `dateParam` at `h:m` in ES.
             // We need to convert that ES time to a Date object (absolute time) to compare with bookings.
 
-            // Construct string with offset
+            // Construct string with offset for El Salvador
             // "2023-10-25T09:00:00-06:00"
             const isoString = `${dateParam}T${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:00-06:00`;
             const slotStartAbs = new Date(isoString);
             const slotEndAbs = new Date(slotStartAbs.getTime() + serviceDuration * 60000);
 
-            // Check overlap
+            // LEGACY CHECK:
+            // Some bookings might have been saved as UTC straight (e.g. 09:00 stored as 09:00 UTC instead of 15:00 UTC).
+            // We check if there's a booking that matches the "face value" time in UTC.
+            const legacyIsoString = `${dateParam}T${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:00Z`;
+            const legacySlotStart = new Date(legacyIsoString);
+            const legacySlotEnd = new Date(legacySlotStart.getTime() + serviceDuration * 60000);
+
+            // Check overlap with either correct time OR legacy time
             const isBooked = bookings.some(b => {
-                return (slotStartAbs.getTime() < b.end.getTime()) && (slotEndAbs.getTime() > b.start.getTime());
+                const overlapsCorrect = (slotStartAbs.getTime() < b.end.getTime()) && (slotEndAbs.getTime() > b.start.getTime());
+                const overlapsLegacy = (legacySlotStart.getTime() < b.end.getTime()) && (legacySlotEnd.getTime() > b.start.getTime());
+                return overlapsCorrect || overlapsLegacy;
             });
 
             if (isBooked) {
