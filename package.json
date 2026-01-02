@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "mcp": "npx tsx mcp-server.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.1",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "@types/canvas-confetti": "^1.9.0",

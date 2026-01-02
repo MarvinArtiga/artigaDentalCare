@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 import styles from './Hero.module.css';
-import Snow from './ui/Snow';
+
 
 import { AnimatedWord } from './ui/AnimatedWord';
 
 export const Hero = () => {
     return (
         <section className={styles.hero}>
-            <Snow />
+
             <div className={styles.overlay}></div>
             <div className={`container ${styles.content}`}>
                 <motion.div
